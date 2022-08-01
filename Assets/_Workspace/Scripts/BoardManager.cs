@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BoardManager : MonoBehaviour
+{
+    public static BoardManager Instance { get; private set; }
+
+    public static float SpotsSpacing { get; private set; } = 2f;
+
+    public readonly Vector2[] BoardDirections =
+    {
+        new Vector2(SpotsSpacing, 0f),
+        new Vector2(-SpotsSpacing, 0f),
+        new Vector2(0f, SpotsSpacing),
+        new Vector2(0f, -SpotsSpacing)
+    };
+
+    private List<Spot> allSpotsInScene;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        allSpotsInScene = new List<Spot>(FindObjectsOfType<Spot>());
+    }
+
+    public List<Spot> GetAllSpotsInScene()
+    {
+        return allSpotsInScene;
+    }
+}
