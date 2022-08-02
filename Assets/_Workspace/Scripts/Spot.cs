@@ -11,11 +11,14 @@ public class Spot : MonoBehaviour
     [SerializeField] private iTween.EaseType activationEase = iTween.EaseType.easeOutQuint;
     [SerializeField] private bool isStartingNode = false;
     [SerializeField] private GameObject linkPrefab;
+    [SerializeField] private LayerMask linkBreakerLayer;
 
     [SerializeField] private float timeBetweenNodesActivation = 0.5f; 
 
     public Vector2 SpotCoordinate { get; private set; }
+
     private List<Spot> neighborSpots = new List<Spot>();
+    private List<Spot> linkedSpots = new List<Spot>();
 
     // Avoid already activated node being reactivated
     public bool IsActive { get; private set; } = false;
@@ -49,16 +52,27 @@ public class Spot : MonoBehaviour
 
         foreach (Spot neighbor in neighborSpots)
         {
-            if (neighbor.IsActive) { continue; }
-
-            DrawLinkBetween(this, neighbor);
-            neighbor.ActivateSpot();
-            neighbor.ShowNeighbors();
+            if (!linkedSpots.Contains(neighbor))
+            {
+                LinkBreaker linkBreaker = CheckLinkBreaker(this, neighbor);
+                if (linkBreaker == null)
+                {
+                    DrawLinkBetween(this, neighbor);
+                    if (neighbor.IsActive) { continue; }
+                    neighbor.ActivateSpot();
+                    neighbor.ShowNeighbors();
+                }
+            }
         }
     }
 
     private void DrawLinkBetween(Spot startSpot, Spot targetSpot)
     {
+        if (!linkedSpots.Contains(targetSpot))
+        {
+            linkedSpots.Add(targetSpot);
+        }
+
         Vector3 startToTargetSpot = targetSpot.transform.position - startSpot.transform.position;
 
         // Place link a bit in front of startingSpot (avoid seeing edges inside the circle)
@@ -72,6 +86,8 @@ public class Spot : MonoBehaviour
         Quaternion linkRotation = Quaternion.LookRotation(startToTargetSpot, Vector3.up);
         linkCreated.transform.rotation = linkRotation;
 
+        linkCreated.transform.parent = BoardManager.Instance.GetLinksParent();
+
         linkCreated.GetComponent<Link>()?.ActivateLink();
     }
 
@@ -84,6 +100,18 @@ public class Spot : MonoBehaviour
             "easetype", activationEase
             ));
         IsActive = true;
+    }
+
+    private LinkBreaker CheckLinkBreaker(Spot startSpot, Spot targetSpot)
+    {
+        Vector3 direction = targetSpot.transform.position - transform.position;
+        RaycastHit raycastHit;
+        if (Physics.Raycast(transform.position, direction, out raycastHit,
+            BoardManager.SpotsSpacing + 0.1f, linkBreakerLayer))
+        {
+            return raycastHit.collider.GetComponent<LinkBreaker>();
+        }
+        return null;
     }
 
     private void PopulateNeighborSpots()

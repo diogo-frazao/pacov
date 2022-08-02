@@ -18,6 +18,8 @@ public class BoardManager : MonoBehaviour
 
     private List<Spot> allSpotsInScene;
 
+    private Transform linksParent = null;
+
     private void Awake()
     {
         if (Instance == null)
@@ -35,5 +37,11 @@ public class BoardManager : MonoBehaviour
     public List<Spot> GetAllSpotsInScene()
     {
         return allSpotsInScene;
+    }
+
+    public Transform GetLinksParent()
+    {
+        linksParent = linksParent == null ? GameObject.Find("LinksParent").transform : linksParent;
+        return linksParent;
     }
 }

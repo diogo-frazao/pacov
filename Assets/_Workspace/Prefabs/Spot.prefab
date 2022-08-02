@@ -102,4 +102,7 @@ MonoBehaviour:
   isStartingNode: 0
   linkPrefab: {fileID: 8900051281701853043, guid: 0bb879baf6a6b2449b458be618534397,
     type: 3}
+  linkBreakerLayer:
+    serializedVersion: 2
+    m_Bits: 64
   timeBetweenNodesActivation: 0.5
