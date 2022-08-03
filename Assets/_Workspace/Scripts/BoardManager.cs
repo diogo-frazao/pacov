@@ -20,6 +20,8 @@ public class BoardManager : MonoBehaviour
 
     private Transform linksParent = null;
 
+    public Spot PlayerSpot { get; private set; } = null;
+
     private void Awake()
     {
         if (Instance == null)
@@ -43,5 +45,10 @@ public class BoardManager : MonoBehaviour
     {
         linksParent = linksParent == null ? GameObject.Find("LinksParent").transform : linksParent;
         return linksParent;
+    }
+
+    public Spot GetSpotAtPosition(Vector3 positionToCheck)
+    {
+        return allSpotsInScene.Find(n => n.transform.position == positionToCheck);
     }
 }

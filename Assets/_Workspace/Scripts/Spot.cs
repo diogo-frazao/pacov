@@ -19,6 +19,7 @@ public class Spot : MonoBehaviour
 
     private List<Spot> neighborSpots = new List<Spot>();
     private List<Spot> linkedSpots = new List<Spot>();
+    private PlayerController player;
 
     // Avoid already activated node being reactivated
     public bool IsActive { get; private set; } = false;
@@ -26,6 +27,7 @@ public class Spot : MonoBehaviour
     private void Awake()
     {
         transform.localScale = Vector3.zero;
+        player = FindObjectOfType<PlayerController>();
 
         SpotCoordinate = new Vector2(Mathf.RoundToInt(transform.position.x), 
             Mathf.RoundToInt(transform.position.z));
@@ -39,6 +41,14 @@ public class Spot : MonoBehaviour
             ShowNeighbors();
         }
         PopulateNeighborSpots();
+    }
+
+    private void OnMouseDown()
+    {
+        if (this == player.PlayerSpot || !player.IsSelected ||
+            player.IsMoving) { return; }
+
+        player.CheckMoveTo(transform.position);
     }
 
     private void ShowNeighbors()
@@ -127,5 +137,10 @@ public class Spot : MonoBehaviour
                 neighborSpots.Add(neighborSpot);
             }
         }
+    }
+
+    public bool IsSpotLinked(Spot spotToCheck)
+    {
+        return linkedSpots.Find(n => n == spotToCheck);
     }
 }

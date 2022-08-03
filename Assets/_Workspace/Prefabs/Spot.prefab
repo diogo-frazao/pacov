@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8990767161204413116}
   - component: {fileID: 6566644428780791414}
   - component: {fileID: 866183512134491750}
+  - component: {fileID: 2779183223341953877}
   m_Layer: 0
   m_Name: Spot
   m_TagString: Untagged
@@ -99,10 +100,23 @@ MonoBehaviour:
   activationTime: 0.4
   activationDelay: 0.4
   activationEase: 15
-  isStartingNode: 0
+  isStartingNode: 1
   linkPrefab: {fileID: 8900051281701853043, guid: 0bb879baf6a6b2449b458be618534397,
     type: 3}
   linkBreakerLayer:
     serializedVersion: 2
     m_Bits: 64
   timeBetweenNodesActivation: 0.5
+--- !u!135 &2779183223341953877
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4621137561197823907}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.42
+  m_Center: {x: -0.000000033527613, y: 0.003, z: -0.000000033527613}
