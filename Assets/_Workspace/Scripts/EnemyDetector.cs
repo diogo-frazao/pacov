@@ -23,6 +23,10 @@ public class EnemyDetector : MonoBehaviour
 
         if (spotToSearchPlayerAt == BoardManager.Instance.GetPlayerSpot())
         {
+            // Avoid detecting player if searching node is not connected to mine
+            Spot mySpot = BoardManager.Instance.GetSpotAtPosition(transform.position);
+            if (mySpot == null || !mySpot.IsSpotLinked(spotToSearchPlayerAt)) { return; }
+
             WasPlayerFound = true;
         }
     }
