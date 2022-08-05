@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : TurnController
 {
     [Header("Player Selection")]
     [SerializeField] private float selectedYPosition = 0.27f;
@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (GameManager.Instance.CurrentTurn != Turn.Player) { return; }
+
         IsSelected = !IsSelected;
 
         float targetYPosition = IsSelected ? selectedYPosition : 0f;
@@ -50,10 +52,11 @@ public class PlayerController : MonoBehaviour
 
     public void CheckMoveTo(Vector3 destination)
     {
+        if (GameManager.Instance.CurrentTurn != Turn.Player) { return; }
+
         Spot spotAtDestination = BoardManager.Instance.GetSpotAtPosition(destination);
         if (spotAtDestination == null) { return; }
 
-        print("Player Spot: " + PlayerSpot + " " + "Destination Spot: " + spotAtDestination);
         // If current player spot is linked to destination
         if (PlayerSpot.IsSpotLinked(spotAtDestination))
         {
@@ -89,6 +92,7 @@ public class PlayerController : MonoBehaviour
         IsMoving = false;
 
         UpdatePlayerSpot();
+        FinishTurn();
     }
 
     private void FaceDestination()

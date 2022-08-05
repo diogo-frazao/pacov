@@ -9,11 +9,6 @@ public class EnemyDetector : MonoBehaviour
     public bool WasPlayerFound { get; private set; }
     private Spot spotToSearchPlayerAt;
 
-    private void Update()
-    {
-        TryDetectPlayer();
-    }
-
     public void TryDetectPlayer()
     {
         Vector3 worldPositionToSearchPlayer = transform.position + transform.TransformVector(
