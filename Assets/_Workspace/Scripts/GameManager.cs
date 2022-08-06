@@ -11,7 +11,7 @@ public enum Turn
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-
+    
     private List<EnemyController> enemies;
     private PlayerController player;
     public Turn CurrentTurn { get; private set; } = Turn.Player;

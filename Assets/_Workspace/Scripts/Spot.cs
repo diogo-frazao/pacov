@@ -45,7 +45,7 @@ public class Spot : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (this == player.PlayerSpot || !player.IsSelected ||
+        if (this == player.CurrentSpot || !player.IsSelected ||
             player.IsMoving) { return; }
 
         player.CheckMoveTo(transform.position);

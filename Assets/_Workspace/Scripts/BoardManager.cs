@@ -54,6 +54,6 @@ public class BoardManager : MonoBehaviour
     public Spot GetPlayerSpot()
     {
         player = player == null ? FindObjectOfType<PlayerController>() : player;
-        return player.PlayerSpot;
+        return player.CurrentSpot;
     }
 }

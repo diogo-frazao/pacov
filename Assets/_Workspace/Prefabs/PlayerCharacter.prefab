@@ -59,15 +59,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8160a1305056b594eaaf9eff0890661f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveTime: 0.65
+  moveEase: 10
+  shouldTurnToDestination: 1
+  rotateTime: 0.25
+  rotateDelay: 0
+  rotateEase: 1
   selectedYPosition: 0.27
   selectionMoveTime: 0.4
   selectionMoveDelay: 0.1
   selectionMoveEase: 24
-  moveTime: 0.65
-  moveEase: 10
-  rotateTime: 0.35
-  rotateDelay: 0
-  rotateEase: 14
 --- !u!1001 &5744756469819095082
 PrefabInstance:
   m_ObjectHideFlags: 0
