@@ -60,6 +60,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3bc55ed1230d9642b3fb17038c7dcaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionForce: 11
+  explosionRotationForce: 10
+  buttonDeactivatedY: 0.08
+  buttonActivatedY: -0.123
+  buttonDeactivatedMaterial: {fileID: 2100000, guid: 8beaeb3c99c37c64087b4b562553591d,
+    type: 2}
+  activatedMaterial: {fileID: 2100000, guid: 124c047c33e34814da1cb38cdc3eedf2, type: 2}
 --- !u!1 &6017339314392524437
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,7 +93,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6017339314392524437}
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 1.4210855e-15}
+  m_LocalPosition: {x: -0, y: -0.049, z: 1.4210855e-15}
   m_LocalScale: {x: 1, y: 1.0000014, z: 0.9999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -121,7 +128,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2e6abcf03f22d664185473aed6650bda, type: 2}
+  - {fileID: 2100000, guid: 8beaeb3c99c37c64087b4b562553591d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

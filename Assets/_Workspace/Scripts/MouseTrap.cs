@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class MouseTrap : MonoBehaviour
 {
+    private Rigidbody myRigidbody = null;
+
+    private void Awake()
+    {
+        myRigidbody = GetComponent<Rigidbody>();
+    }
+
     public bool IsActivated { get; private set; } = true;
 
     private void OnTriggerEnter(Collider other)
@@ -14,8 +21,23 @@ public class MouseTrap : MonoBehaviour
         }
     }
 
-    public void DeactivateMouseTrap()
+    public void DeactivateMouseTrap(float explosionForce, float explosionRotationForce)
     {
+        myRigidbody.isKinematic = false;
+
+        myRigidbody.AddForce(GetRandomForceDirection() * explosionForce, ForceMode.Impulse);
+        myRigidbody.AddTorque(Vector3.forward * explosionRotationForce);
+
         IsActivated = false;
+    }
+
+    private Vector3 GetRandomForceDirection()
+    {
+        int randomMultiplier = Random.Range(-1, 2);
+        while (randomMultiplier == 0)
+        {
+            randomMultiplier = Random.Range(-1, 2);
+        }
+        return new Vector3(0.4f * randomMultiplier, 1f, Random.Range(-0.4f, 0.4f));
     }
 }
