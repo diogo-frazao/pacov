@@ -6,6 +6,11 @@ public class MouseTrap : MonoBehaviour
 {
     private Rigidbody myRigidbody = null;
 
+    [Header("Trap Activation")]
+    [SerializeField] private float activationTime = 0.2f;
+    [SerializeField] private float activationDelay = 0f;
+    [SerializeField] private iTween.EaseType activationEase = iTween.EaseType.spring;
+
     private void Awake()
     {
         myRigidbody = GetComponent<Rigidbody>();
@@ -17,12 +22,30 @@ public class MouseTrap : MonoBehaviour
     {
         if (other.CompareTag("Player") && IsActivated)
         {
-            Debug.LogWarning("Player dead");
+            ActivateMouseTrap();
+
+            // Call on trap activated event
+            Actions.OnTrapActivated();
+
+            IsActivated = false;
         }
+    }
+
+    private void ActivateMouseTrap()
+    {
+        GameObject trapSpring = transform.Find("Spring").gameObject;
+        iTween.RotateTo(trapSpring, iTween.Hash(
+            "z", 172f,
+            "time", activationTime,
+            "delay", activationDelay,
+            "easetype", activationEase,
+            "islocal", true
+            ));
     }
 
     public void DeactivateMouseTrap(float explosionForce, float explosionRotationForce)
     {
+        GetComponent<BoxCollider>().isTrigger = false;
         myRigidbody.isKinematic = false;
 
         myRigidbody.AddForce(GetRandomForceDirection() * explosionForce, ForceMode.Impulse);

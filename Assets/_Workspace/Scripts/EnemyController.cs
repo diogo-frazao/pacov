@@ -13,20 +13,30 @@ public enum EnemyType
 [RequireComponent(typeof(EnemyDetector))]
 public class EnemyController : MovementController
 {
-    private EnemyDetector myEnemyDetector;
+    public EnemyDetector MyEnemyDetector { get; private set; }
 
     [Header("Enemy Specific")]
     [SerializeField] private Vector3 directionToMove = new Vector3(0f, 0f, BoardManager.SpotsSpacing);
     [SerializeField] private EnemyType myEnemyType;
 
+    private Health myHealthComponent;
+
     private void Awake()
     {
-        myEnemyDetector = GetComponent<EnemyDetector>();
+        MyEnemyDetector = GetComponent<EnemyDetector>();
+        myHealthComponent = GetComponent<Health>();
     }
 
     public void PlayEnemyTurn()
     {
-        myEnemyDetector.TryDetectPlayer();
+        // If enemy is dead, don't do anything in his turn
+        if (myHealthComponent.IsAlive == false)
+        {
+            FinishTurn();
+            return;
+        }
+
+        MyEnemyDetector.TryDetectPlayer();
         EnemyActionBasedOnType();
     }
 
@@ -72,5 +82,13 @@ public class EnemyController : MovementController
     {
         yield return new WaitForSeconds(1f);
         FinishTurn();
+    }
+
+    /** Enemy Death */
+
+    public void ScareEnemy()
+    {
+        myHealthComponent.SetIsAlive(false);
+        gameObject.SetActive(false);
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2243868902482946086}
   - component: {fileID: 2243868902482946105}
   - component: {fileID: 2243868902482946104}
+  - component: {fileID: 3650586916667828415}
   m_Layer: 0
   m_Name: EnemyCharacter
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2243868902482946087}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -46,7 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23027223c3e9631489e7ca4f57d4488f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directionToSearchPlayer: {x: 0, y: 0, z: 2}
 --- !u!114 &2243868902482946104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,6 +67,18 @@ MonoBehaviour:
   rotateEase: 4
   directionToMove: {x: 0, y: 0, z: 2}
   myEnemyType: 1
+--- !u!114 &3650586916667828415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2243868902482946087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf986ce9e8225e458d9174e7ac909e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2243868902509546994
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102,17 +114,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 23ea683d526a1cc47a862a10c6762e8b,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 23ea683d526a1cc47a862a10c6762e8b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 23ea683d526a1cc47a862a10c6762e8b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 23ea683d526a1cc47a862a10c6762e8b,
         type: 3}

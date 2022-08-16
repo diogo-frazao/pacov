@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
-    [Header("PieceMovement")]
+    [Header("Piece Movement")]
     [SerializeField] protected float moveTime = 0.5f;
     [SerializeField] protected iTween.EaseType moveEase = iTween.EaseType.easeOutQuint;
 
@@ -90,5 +90,4 @@ public class MovementController : MonoBehaviour
     {
         CurrentSpot = BoardManager.Instance.GetSpotAtPosition(transform.position);
     }
-
 }

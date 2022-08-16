@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     
-    private List<EnemyController> enemies;
+    public List<EnemyController> enemies { get; private set; }
     private PlayerController player;
     public Turn CurrentTurn { get; private set; } = Turn.Player;
 

@@ -56,4 +56,20 @@ public class BoardManager : MonoBehaviour
         player = player == null ? FindObjectOfType<PlayerController>() : player;
         return player.CurrentSpot;
     }
+
+    public EnemyController GetEnemyAtLocation(Vector3 location)
+    {
+        Spot spotAtLocation = GetSpotAtPosition(location);
+        if (spotAtLocation == null) { return null; }
+
+        foreach (var enemy in GameManager.Instance.enemies)
+        {
+            if (enemy.CurrentSpot == spotAtLocation)
+            {
+                print(enemy.gameObject.name + " is in the spot player will move towards");
+                return enemy;
+            }
+        }
+        return null;
+    }
 }
