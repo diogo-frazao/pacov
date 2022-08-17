@@ -86,9 +86,10 @@ public class EnemyController : MovementController
 
     /** Enemy Death */
 
-    public void ScareEnemy()
+    public void ScareEnemy(Vector3 directionToThrowEnemy)
     {
-        myHealthComponent.SetIsAlive(false);
-        gameObject.SetActive(false);
+        GetComponent<CapsuleCollider>().isTrigger = false;
+
+        myHealthComponent.Die(1f);   
     }
 }

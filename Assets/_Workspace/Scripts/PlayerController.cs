@@ -11,12 +11,6 @@ public class PlayerController : MovementController
     [SerializeField] private float selectionMoveDelay = 0.1f;
     [SerializeField] private iTween.EaseType selectionMoveEase = iTween.EaseType.easeInOutElastic;
 
-    [Header("Player Trap Death")]
-    [SerializeField] private Transform trapDeathForceLocation;
-    [SerializeField] private float trapDeathRotationForce = 10f;
-    [SerializeField] private float trapDeathForwardImpulse = 2f;
-    [SerializeField] private float trapDeathUpImpulse = 4f;
-
     public bool IsSelected { get; private set; } = false;
 
     private Rigidbody myRigidbody = null;
@@ -53,7 +47,7 @@ public class PlayerController : MovementController
         if (enemyAtDestination && enemyAtDestination.MyEnemyDetector.WasPlayerFound == false)
         {
             print(enemyAtDestination + " was scared");
-            enemyAtDestination.ScareEnemy();
+            enemyAtDestination.ScareEnemy(transform.forward * -1f);
         }
 
         base.MoveTo(destination);
@@ -61,7 +55,8 @@ public class PlayerController : MovementController
 
     private void OnMouseDown()
     {
-        if (GameManager.Instance.CurrentTurn != Turn.Player) { return; }
+        if (GameManager.Instance.CurrentTurn != Turn.Player || 
+            myHealthComponent.IsAlive == false) { return; }
 
         // Select player
         IsSelected = !IsSelected;
@@ -91,14 +86,6 @@ public class PlayerController : MovementController
 
     private void PlayerMouseTrapDeath()
     {
-        myRigidbody.isKinematic = false;
-
-        Vector3 trapDeathForce = (transform.forward * trapDeathForwardImpulse) +
-            new Vector3(0f, trapDeathUpImpulse, 0f);
-
-        myRigidbody.AddForce(trapDeathForce, ForceMode.Impulse);
-        myRigidbody.AddForce(transform.right * trapDeathRotationForce);
-
-        myHealthComponent.SetIsAlive(false);
+        myHealthComponent.Die(1f);
     }
 }
