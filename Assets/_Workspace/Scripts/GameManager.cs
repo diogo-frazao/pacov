@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     
     public List<EnemyController> enemies { get; private set; }
-    private PlayerController player;
+    public PlayerController Player { get; private set; }
     public Turn CurrentTurn { get; private set; } = Turn.Player;
 
     private void Awake()
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        player = FindObjectOfType<PlayerController>();
+        Player = FindObjectOfType<PlayerController>();
         enemies = new List<EnemyController>(FindObjectsOfType<EnemyController>());
     }
 
@@ -35,11 +35,11 @@ public class GameManager : MonoBehaviour
     {
         if (CurrentTurn == Turn.Player)
         {
-            if (player.IsTurnComplete)
+            if (Player.IsTurnComplete)
             {
                 // Switch to enemy turn
                 CurrentTurn = Turn.Enemy;
-                player.IsTurnComplete = false;
+                Player.IsTurnComplete = false;
 
                 foreach (var enemy in enemies)
                 {

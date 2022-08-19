@@ -82,9 +82,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf986ce9e8225e458d9174e7ac909e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathForwardImpulse: 4
-  deathUpImpulse: 12
-  deathRotationForce: 15
+  deathForwardImpulse: 3
+  deathUpImpulse: 10
+  deathRotationForce: 20
 --- !u!54 &4485410636506725621
 Rigidbody:
   m_ObjectHideFlags: 0

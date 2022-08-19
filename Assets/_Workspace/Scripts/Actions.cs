@@ -6,4 +6,5 @@ using UnityEngine;
 public static class Actions
 {
     public static Action OnTrapActivated;
+    public static Action<Vector3> OnPlayerKilled;
 }

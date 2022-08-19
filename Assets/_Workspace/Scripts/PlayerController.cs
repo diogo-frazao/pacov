@@ -28,7 +28,8 @@ public class PlayerController : MovementController
 
     private void OnEnable()
     {
-        Actions.OnTrapActivated += CallPlayerMouseTrapDeath;
+        Actions.OnTrapActivated += PlayerMouseTrapDeath;
+        Actions.OnPlayerKilled += PlayerDeath;
     }
 
     public override void CheckMoveTo(Vector3 destination)
@@ -47,7 +48,7 @@ public class PlayerController : MovementController
         if (enemyAtDestination && enemyAtDestination.MyEnemyDetector.WasPlayerFound == false)
         {
             print(enemyAtDestination + " was scared");
-            enemyAtDestination.ScareEnemy(transform.forward * -1f);
+            enemyAtDestination.ScareEnemy(transform.forward);
         }
 
         base.MoveTo(destination);
@@ -72,20 +73,25 @@ public class PlayerController : MovementController
             ));
     }
 
-    private void CallPlayerMouseTrapDeath()
+    /** Player Death */
+
+    private void PlayerMouseTrapDeath()
     {
         // Ignore collisions with objects (avoids getting inside other rigid bodies)
         gameObject.layer = LayerMask.NameToLayer("OnlyGround");
 
         mySphereCollider.isTrigger = true;
 
-        Invoke(nameof(PlayerMouseTrapDeath), 0.2f);
+        myHealthComponent.Die(transform.forward, transform.right, 1f);
     }
 
-    /** Player Death */
-
-    private void PlayerMouseTrapDeath()
+    public void PlayerDeath(Vector3 directionToThrowPlayer)
     {
-        myHealthComponent.Die(1f);
+        // Ignore collisions with objects (avoids getting inside other rigid bodies)
+        gameObject.layer = LayerMask.NameToLayer("OnlyGround");
+
+        mySphereCollider.isTrigger = true;
+
+        myHealthComponent.Die(directionToThrowPlayer, -directionToThrowPlayer, 1.25f);
     }
 }

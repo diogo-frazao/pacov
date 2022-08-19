@@ -16,19 +16,30 @@ public class Health : MonoBehaviour
         IsAlive = value;
     }
 
-    public void Die(float forceMultiplier)
+    public void Die(Vector3 deathDirection, Vector3 rotationDirection, float forceMultiplier)
     {
+        // Ignore collisions with objects (avoids getting inside other rigid bodies)
+        gameObject.layer = LayerMask.NameToLayer("OnlyGround");
+
+        StartCoroutine(DieRoutine(deathDirection, rotationDirection, forceMultiplier));
+    }
+
+    private IEnumerator DieRoutine(Vector3 deathDirection, Vector3 rotationDirection, float forceMultiplier)
+    {
+        yield return new WaitForSeconds(0.2f);
+
         Rigidbody myRigidbody = GetComponent<Rigidbody>();
-        if (myRigidbody == null) { return; }
+        if (myRigidbody != null)
+        {
+            myRigidbody.isKinematic = false;
 
-        myRigidbody.isKinematic = false;
+            Vector3 deathForce = (deathDirection * deathForwardImpulse * forceMultiplier) +
+                new Vector3(0f, deathUpImpulse * forceMultiplier, 0f);
 
-        Vector3 deathForce = (transform.forward * deathForwardImpulse * forceMultiplier) +
-            new Vector3(0f, deathUpImpulse * forceMultiplier, 0f);
+            myRigidbody.AddForce(deathForce, ForceMode.Impulse);
+            myRigidbody.AddRelativeTorque(rotationDirection * deathRotationForce * forceMultiplier);
 
-        myRigidbody.AddForce(deathForce, ForceMode.Impulse);
-        myRigidbody.AddForce(transform.right * deathRotationForce * forceMultiplier);
-
-        SetIsAlive(false);
+            SetIsAlive(false);
+        }
     }
 }

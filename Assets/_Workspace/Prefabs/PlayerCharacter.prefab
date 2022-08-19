@@ -120,10 +120,6 @@ MonoBehaviour:
   selectionMoveTime: 0.4
   selectionMoveDelay: 0.1
   selectionMoveEase: 24
-  trapDeathForceLocation: {fileID: 255939024}
-  trapDeathRotationForce: 30
-  trapDeathForwardImpulse: 3
-  trapDeathUpImpulse: 8
 --- !u!65 &211089903
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -149,6 +145,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf986ce9e8225e458d9174e7ac909e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathForwardImpulse: 2
+  deathUpImpulse: 4
+  deathRotationForce: 10
 --- !u!1001 &5744756469819095082
 PrefabInstance:
   m_ObjectHideFlags: 0

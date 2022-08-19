@@ -65,6 +65,9 @@ public class EnemyController : MovementController
         MoveTo(nextNodePosition);
         while (IsMoving) { yield return null; }
 
+        // After moving to new spot, check if player should be killed
+        CheckKillPlayer();
+
         Spot nextSpot = BoardManager.Instance.GetSpotAtPosition(nextNodePosition);
         Spot nextNextSpot = BoardManager.Instance.GetSpotAtPosition(nextNextNodePosition);
 
@@ -81,7 +84,30 @@ public class EnemyController : MovementController
     private IEnumerator StayStillRoutine()
     {
         yield return new WaitForSeconds(1f);
+        CheckKillPlayer();
         FinishTurn();
+    }
+
+    private void CheckKillPlayer()
+    {
+        // After moving and detecting player, check for player kill
+        if (MyEnemyDetector.WasPlayerFound)
+        {
+            if (CurrentSpot == BoardManager.Instance.GetPlayerSpot())
+            {
+                CallOnPlayerKilled();
+            }
+            else
+            {
+                MoveTo(GameManager.Instance.Player.transform.position);
+                Invoke(nameof(CallOnPlayerKilled), moveTime);
+            }
+        }
+    }
+
+    private void CallOnPlayerKilled()
+    {
+        Actions.OnPlayerKilled(transform.forward);
     }
 
     /** Enemy Death */
@@ -89,7 +115,9 @@ public class EnemyController : MovementController
     public void ScareEnemy(Vector3 directionToThrowEnemy)
     {
         GetComponent<CapsuleCollider>().isTrigger = false;
-
-        myHealthComponent.Die(1f);   
+        
+        myHealthComponent.Die(directionToThrowEnemy, directionToThrowEnemy, 1f);   
     }
+
+
 }
