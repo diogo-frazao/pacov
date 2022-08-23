@@ -19,6 +19,11 @@ public class EnemyController : MovementController
     [SerializeField] private Vector3 directionToMove = new Vector3(0f, 0f, BoardManager.SpotsSpacing);
     [SerializeField] private EnemyType myEnemyType;
 
+    [Header("Enemy Audio")]
+    [SerializeField] private AudioClip enemyMoveSound;
+    [SerializeField] private AudioClip enemyTurnSound;
+    [SerializeField] private AudioClip enemyKillPlayerSound;
+
     private Health myHealthComponent;
 
     private void Awake()
@@ -63,6 +68,9 @@ public class EnemyController : MovementController
         Vector3 nextNextNodePosition = startPosition + transform.TransformVector(directionToMove * 2);
 
         MoveTo(nextNodePosition);
+
+        SoundManager.Instance.PlayAudio(enemyMoveSound, 1.5f, false);
+
         while (IsMoving) { yield return null; }
 
         // After moving to new spot, check if player should be killed
@@ -76,6 +84,13 @@ public class EnemyController : MovementController
         {
             Destination = startPosition;
             FaceDestination();
+
+            // If player was killed, don't play turn sound (confusing)
+            if (GameManager.Instance.IsGameOver == false)
+            {
+                SoundManager.Instance.PlayAudio(enemyTurnSound, 1.5f, false);
+            }
+
             yield return new WaitForSeconds(rotateTime);
         }
         FinishTurn();
@@ -107,6 +122,7 @@ public class EnemyController : MovementController
 
     private void CallOnPlayerKilled()
     {
+        SoundManager.Instance.PlayAudio(enemyKillPlayerSound, 1.25f, false);
         Actions.OnPlayerKilled(transform.forward);
     }
 

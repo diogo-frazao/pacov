@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public PlayerController Player { get; private set; }
     public Turn CurrentTurn { get; private set; } = Turn.Player;
 
+    public bool IsGameOver { get; private set; } = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -72,5 +74,10 @@ public class GameManager : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void SetIsGameMover(bool value)
+    {
+        IsGameOver = value;
     }
 }

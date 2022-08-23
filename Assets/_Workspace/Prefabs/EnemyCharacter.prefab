@@ -70,6 +70,8 @@ MonoBehaviour:
   rotateEase: 4
   directionToMove: {x: 0, y: 0, z: 2}
   myEnemyType: 1
+  enemyMoveSound: {fileID: 8300000, guid: ff1b31c934031584f938370ce82328ea, type: 3}
+  enemyTurnSound: {fileID: 8300000, guid: 26364d7859de0fa439835c06b49ef1d1, type: 3}
 --- !u!114 &3650586916667828415
 MonoBehaviour:
   m_ObjectHideFlags: 0

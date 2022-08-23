@@ -11,6 +11,11 @@ public class PlayerController : MovementController
     [SerializeField] private float selectionMoveDelay = 0.1f;
     [SerializeField] private iTween.EaseType selectionMoveEase = iTween.EaseType.easeInOutElastic;
 
+    [Header("Player Sounds")]
+    [SerializeField] private AudioClip playerSelectionSound;
+    [SerializeField] private AudioClip playerPieceDownSound;
+    [SerializeField] private AudioClip playerDeathHitSound;
+
     public bool IsSelected { get; private set; } = false;
 
     private Rigidbody myRigidbody = null;
@@ -32,6 +37,14 @@ public class PlayerController : MovementController
         Actions.OnPlayerKilled += PlayerDeath;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (myHealthComponent.IsAlive == false)
+        {
+            SoundManager.Instance.PlayAudio(playerDeathHitSound, 1.5f, true);
+        }
+    }
+
     public override void CheckMoveTo(Vector3 destination)
     {
         if (myHealthComponent.IsAlive == false) { return; }
@@ -50,6 +63,8 @@ public class PlayerController : MovementController
             print(enemyAtDestination + " was scared");
             enemyAtDestination.ScareEnemy(transform.forward);
         }
+
+        SoundManager.Instance.PlayAudio(playerPieceDownSound, 1f, false);
 
         base.MoveTo(destination);
     }
@@ -71,6 +86,8 @@ public class PlayerController : MovementController
             "delay", selectionMoveDelay,
             "easetype", selectionMoveEase
             ));
+
+        SoundManager.Instance.PlayAudio(playerSelectionSound, 1f, false);
     }
 
     /** Player Death */
@@ -87,6 +104,8 @@ public class PlayerController : MovementController
 
     public void PlayerDeath(Vector3 directionToThrowPlayer)
     {
+        GameManager.Instance.SetIsGameMover(true);
+
         // Ignore collisions with objects (avoids getting inside other rigid bodies)
         gameObject.layer = LayerMask.NameToLayer("OnlyGround");
 
