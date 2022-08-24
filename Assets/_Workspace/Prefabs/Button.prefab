@@ -67,6 +67,8 @@ MonoBehaviour:
   buttonDeactivatedMaterial: {fileID: 2100000, guid: 8beaeb3c99c37c64087b4b562553591d,
     type: 2}
   activatedMaterial: {fileID: 2100000, guid: 124c047c33e34814da1cb38cdc3eedf2, type: 2}
+  buttonActivationSound: {fileID: 8300000, guid: 07408267fb4688947b5cd8df3a60b513,
+    type: 3}
 --- !u!1 &6017339314392524437
 GameObject:
   m_ObjectHideFlags: 0

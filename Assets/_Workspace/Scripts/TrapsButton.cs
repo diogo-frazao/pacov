@@ -16,6 +16,7 @@ public class TrapsButton : MonoBehaviour
     [SerializeField] private float buttonActivatedY = -0.104f;
     [SerializeField] private Material buttonDeactivatedMaterial;
     [SerializeField] private Material activatedMaterial;
+    [SerializeField] private AudioClip buttonActivationSound;
 
     private void Awake()
     {
@@ -29,7 +30,6 @@ public class TrapsButton : MonoBehaviour
             if (!wasActivated)
             {
                 Invoke(nameof(CallDeactivateMouseTraps), 0.2f);
-                // TODO change height and color to active
                 wasActivated = true;
             }
             StartCoroutine(ActivateTrapButton(true));
@@ -38,6 +38,7 @@ public class TrapsButton : MonoBehaviour
 
     private void CallDeactivateMouseTraps()
     {
+        SoundManager.Instance.PlayAudio(buttonActivationSound, 2.5f, true);
         foreach (var mouseTrap in mouseTrapsInScene) 
         { 
             mouseTrap.DeactivateMouseTrap(explosionForce, explosionRotationForce); 

@@ -9,7 +9,6 @@ public enum EnemyType
     Patrol
 }
 
-
 [RequireComponent(typeof(EnemyDetector))]
 public class EnemyController : MovementController
 {
@@ -69,7 +68,7 @@ public class EnemyController : MovementController
 
         MoveTo(nextNodePosition);
 
-        SoundManager.Instance.PlayAudio(enemyMoveSound, 1.5f, false);
+        SoundManager.Instance.PlayAudio(enemyMoveSound, 2.25f, false);
 
         while (IsMoving) { yield return null; }
 
@@ -130,6 +129,8 @@ public class EnemyController : MovementController
 
     public void ScareEnemy(Vector3 directionToThrowEnemy)
     {
+        SoundManager.Instance.PlayAudio(enemyKillPlayerSound, 1.25f, false);
+
         GetComponent<CapsuleCollider>().isTrigger = false;
         
         myHealthComponent.Die(directionToThrowEnemy, directionToThrowEnemy, 1f);   

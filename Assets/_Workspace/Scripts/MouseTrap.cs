@@ -11,6 +11,8 @@ public class MouseTrap : MonoBehaviour
     [SerializeField] private float activationDelay = 0f;
     [SerializeField] private iTween.EaseType activationEase = iTween.EaseType.spring;
 
+    [SerializeField] private AudioClip trapActivationSound;
+
     private void Awake()
     {
         myRigidbody = GetComponent<Rigidbody>();
@@ -33,6 +35,8 @@ public class MouseTrap : MonoBehaviour
 
     private void ActivateMouseTrap()
     {
+        SoundManager.Instance.PlayAudio(trapActivationSound, 3f, true);
+
         GameObject trapSpring = transform.Find("Spring").gameObject;
         iTween.RotateTo(trapSpring, iTween.Hash(
             "z", 172f,
@@ -45,6 +49,8 @@ public class MouseTrap : MonoBehaviour
 
     public void DeactivateMouseTrap(float explosionForce, float explosionRotationForce)
     {
+        SoundManager.Instance.PlayAudio(trapActivationSound, 3f, true);
+
         GetComponent<BoxCollider>().isTrigger = false;
         myRigidbody.isKinematic = false;
 

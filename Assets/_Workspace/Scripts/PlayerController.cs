@@ -41,7 +41,7 @@ public class PlayerController : MovementController
     {
         if (myHealthComponent.IsAlive == false)
         {
-            SoundManager.Instance.PlayAudio(playerDeathHitSound, 1.5f, true);
+            SoundManager.Instance.PlayAudio(playerDeathHitSound, 2.5f, true);
         }
     }
 

@@ -13,7 +13,9 @@ public class Spot : MonoBehaviour
     [SerializeField] private GameObject linkPrefab;
     [SerializeField] private LayerMask linkBreakerLayer;
 
-    [SerializeField] private float timeBetweenNodesActivation = 0.5f; 
+    [SerializeField] private float timeBetweenNodesActivation = 0.5f;
+
+    [SerializeField] private AudioClip spotActivationSound;
 
     public Vector2 SpotCoordinate { get; private set; }
 
@@ -110,6 +112,13 @@ public class Spot : MonoBehaviour
             "easetype", activationEase
             ));
         IsActive = true;
+
+        Invoke(nameof(PlayActivationSound), activationDelay);
+    }
+    
+    private void PlayActivationSound()
+    {
+        SoundManager.Instance.PlayAudio(spotActivationSound, 1.5f, false);
     }
 
     private LinkBreaker CheckLinkBreaker(Spot startSpot, Spot targetSpot)

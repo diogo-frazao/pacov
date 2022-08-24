@@ -315,6 +315,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b8deab98f08d5f47b608939ddfb4b40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activationTime: 0.2
+  activationDelay: 0
+  activationEase: 22
+  trapActivationSound: {fileID: 8300000, guid: 77d376128c4c4e542a700339a9d243aa, type: 3}
 --- !u!65 &850084768
 BoxCollider:
   m_ObjectHideFlags: 0
